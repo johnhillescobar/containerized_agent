@@ -1,6 +1,6 @@
-# DTO Test - LangChain Agent with Unit Conversion Tools
+# Agent Containerized Demo
 
-A LangChain/LangGraph-based conversational agent that performs unit conversions using structured tools and middleware. This project demonstrates building an agent with custom state tracking, error handling, and context management.
+A demo repo for building a **LangChain/LangGraph agent** (unit conversion tools, DTOs, middleware) and **running it in Docker**. Covers agent design with custom state and structured output, plus containerization from Dockerfile to `docker run`. Run locally with `uv` or in a container; includes step-by-step guides for both.
 
 ## 📚 Learning Resources
 
