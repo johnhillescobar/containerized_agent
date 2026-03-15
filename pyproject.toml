@@ -1,7 +1,12 @@
 [project]
-name = "dto-test"
+name = "containerized_agent"
 version = "0.1.0"
-description = "Add your description here"
+description = """
+A demo repo for building a LangChain/LangGraph agent (unit conversion tools,
+DTOs, middleware) and running it in Docker. Covers agent design with custom
+state and structured output, plus containerization from Dockerfile to docker run.
+Run locally with uv or in a container; includes step-by-step guides for both.
+"""
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
