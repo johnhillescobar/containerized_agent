@@ -1,0 +1,16 @@
+# Step 4: Keep build context small and avoid copying secrets
+# See docs/CONTAINERIZED_AGENT_GUIDE.md
+
+.venv
+__pycache__
+*.pyc
+*.pyo
+.env
+.env.*
+.git
+.gitignore
+*.md
+docs
+.idea
+.vscode
+*.log
