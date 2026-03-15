@@ -1,7 +1,10 @@
 from datetime import datetime
-from langchain.tools import BaseTool
-from pydantic import BaseModel, Field
 import logging
+
+from langchain.tools import BaseTool
+from langchain_core.runnables import RunnableConfig
+from pydantic import BaseModel, Field
+
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -27,7 +30,11 @@ class FeetToMetersResponse(BaseModel):
 
 
 class FeetToMetersTool(BaseTool):
-    """Convert Feet to Meters"""
+    """Convert Feet to Meters.
+
+    Uses RunnableConfig in _run/_arun so the agent's config (callbacks, metadata,
+    configurable, etc.) is injected by BaseTool when the tool is invoked.
+    """
 
     name: str = "feet_to_meters"
     description: str = "Convert Feet to Meters"
@@ -35,8 +42,9 @@ class FeetToMetersTool(BaseTool):
 
     def _run(
         self,
+        config: RunnableConfig,
         **kwargs: dict,
-    ) -> float:
+    ) -> FeetToMetersResponse:
         validated_input = FeetToMeters(**kwargs)
         feet = validated_input.feet
         miles = validated_input.miles
@@ -68,8 +76,8 @@ class FeetToMetersTool(BaseTool):
 
             logger.info(f"Kilometers: {kilometers}")
             return FeetToMetersResponse(
-                input_value=feet,
-                input_unit="feet",
+                input_value=miles,
+                input_unit="miles",
                 output_value=kilometers,
                 output_unit="kilometers",
                 timestamp=datetime.now(),
@@ -80,8 +88,9 @@ class FeetToMetersTool(BaseTool):
 
     async def _arun(
         self,
+        config: RunnableConfig,
         **kwargs: dict,
-    ) -> float:
+    ) -> FeetToMetersResponse:
         validated_input = FeetToMeters(**kwargs)
         feet = validated_input.feet
         miles = validated_input.miles
@@ -113,8 +122,8 @@ class FeetToMetersTool(BaseTool):
 
             logger.info(f"Kilometers: {kilometers}")
             return FeetToMetersResponse(
-                input_value=feet,
-                input_unit="feet",
+                input_value=miles,
+                input_unit="miles",
                 output_value=kilometers,
                 output_unit="kilometers",
                 timestamp=datetime.now(),

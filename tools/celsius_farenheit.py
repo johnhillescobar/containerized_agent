@@ -1,7 +1,9 @@
 from datetime import datetime
-from langchain.tools import BaseTool
-from pydantic import BaseModel, Field
 import logging
+
+from langchain.tools import BaseTool
+from langchain_core.runnables import RunnableConfig
+from pydantic import BaseModel, Field
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -20,13 +22,19 @@ class CelsiusToFarenheitResponse(BaseModel):
 
 
 class CelsiusToFarenheitTool(BaseTool):
-    """Convert Celsius to Farenheit"""
+    """Convert Celsius to Farenheit.
+
+    Uses RunnableConfig in _run/_arun so the agent's config (callbacks, metadata,
+    configurable, etc.) is injected by BaseTool when the tool is invoked.
+    """
 
     name: str = "celsius_to_farenheit"
     description: str = "Convert Celsius to Farenheit"
     args_schema: type[BaseModel] = CelsiusToFarenheit
 
-    def _run(self, **kwargs: dict) -> CelsiusToFarenheitResponse:
+    def _run(
+        self, config: RunnableConfig, **kwargs: dict
+    ) -> CelsiusToFarenheitResponse:
         validated_input = CelsiusToFarenheit(**kwargs)
         celsius = validated_input.celsius
 
@@ -45,7 +53,9 @@ class CelsiusToFarenheitTool(BaseTool):
             timestamp=datetime.now(),
         )
 
-    async def _arun(self, **kwargs: dict) -> CelsiusToFarenheitResponse:
+    async def _arun(
+        self, config: RunnableConfig, **kwargs: dict
+    ) -> CelsiusToFarenheitResponse:
         validated_input = CelsiusToFarenheit(**kwargs)
         celsius = validated_input.celsius
 

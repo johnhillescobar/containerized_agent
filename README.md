@@ -6,6 +6,7 @@ A demo repo for building a **LangChain/LangGraph agent** (unit conversion tools,
 
 - **👉 [Complete DTO Guide](./docs/DTO_GUIDE.md)** - Why DTOs are critical for agents, step-by-step blueprint, best practices, and architecture patterns.
 - **👉 [Containerized Agent Guide](./docs/CONTAINERIZED_AGENT_GUIDE.md)** - Step-by-step guide to building and running the agent in Docker (Dockerfile, build, run, and optional Compose).
+- **👉 [BaseTool and RunnableConfig](./docs/BASETOOL_AND_RUNNABLECONFIG.md)** - How BaseTool works, how config flows into tools, and why/how to use RunnableConfig in `_run` and `_arun`.
 
 This project serves as a practical example implementing all the concepts in the DTO guide and can be run locally or in a container.
 
@@ -29,7 +30,8 @@ containerized_agent/
 ├── .dockerignore           # Excludes .venv, .env, etc. from build
 ├── docs/
 │   ├── DTO_GUIDE.md        # DTO and agent design guide
-│   └── CONTAINERIZED_AGENT_GUIDE.md  # Docker step-by-step
+│   ├── CONTAINERIZED_AGENT_GUIDE.md  # Docker step-by-step
+│   └── BASETOOL_AND_RUNNABLECONFIG.md  # BaseTool + RunnableConfig
 ├── dto/
 │   └── state.py            # AgentState and AgentResponse models
 ├── tools/                  # Conversion tools

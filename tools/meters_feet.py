@@ -1,7 +1,10 @@
 from datetime import datetime
-from langchain.tools import BaseTool
-from pydantic import BaseModel, Field
 import logging
+
+from langchain.tools import BaseTool
+from langchain_core.runnables import RunnableConfig
+from pydantic import BaseModel, Field
+
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -27,7 +30,11 @@ class MetersToFeetResponse(BaseModel):
 
 
 class MetersToFeetTool(BaseTool):
-    """Convert Meters to Feet"""
+    """Convert Meters to Feet
+
+    Uses RunnableConfig in _run/_arun so the agent's config (callbacks, metadata,
+    configurable, etc.) is injected by BaseTool when the tool is invoked.
+    """
 
     name: str = "meters_to_feet"
     description: str = "Convert Meters to Feet"
@@ -35,8 +42,9 @@ class MetersToFeetTool(BaseTool):
 
     def _run(
         self,
+        config: RunnableConfig,
         **kwargs: dict,
-    ) -> float:
+    ) -> MetersToFeetResponse:
         validated_input = MetersToFeet(**kwargs)
         meters = validated_input.meters
         kilometers = validated_input.kilometers
@@ -80,8 +88,9 @@ class MetersToFeetTool(BaseTool):
 
     async def _arun(
         self,
+        config: RunnableConfig,
         **kwargs: dict,
-    ) -> float:
+    ) -> MetersToFeetResponse:
         validated_input = MetersToFeet(**kwargs)
         meters = validated_input.meters
         kilometers = validated_input.kilometers
