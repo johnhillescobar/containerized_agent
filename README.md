@@ -84,6 +84,10 @@ docker build -t containerized_agent .
 docker run --rm --env-file .env containerized_agent
 ```
 
+To remove the image when you're done: `docker rmi containerized_agent`
+
+**Note:** `docker run --rm` already removes the *container* when it exits. `docker rmi containerized_agent` removes the *image* from your machine to free disk space when you no longer need it.
+
 See [docs/CONTAINERIZED_AGENT_GUIDE.md](./docs/CONTAINERIZED_AGENT_GUIDE.md) for a full walkthrough.
 
 ## Architecture

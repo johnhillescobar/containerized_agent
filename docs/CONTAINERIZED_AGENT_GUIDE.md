@@ -121,10 +121,13 @@ For a single service, Compose is optional but useful for env and future options 
 
 | Goal | Command |
 |------|--------|
-| Build image | `docker build -t containerized-agent .` |
-| Run with env file | `docker run --rm --env-file .env containerized-agent` |
-| Run with inline env | `docker run --rm -e OPENAI_API_KEY=sk-... containerized-agent` |
+| Build image | `docker build -t containerized_agent .` |
+| Run with env file | `docker run --rm --env-file .env containerized_agent` |
+| Run with inline env | `docker run --rm -e OPENAI_API_KEY=sk-... containerized_agent` |
 | Run with Compose | `docker compose up --build` |
+| **Remove image** | `docker rmi containerized_agent` |
+
+**Note:** `docker run --rm` already removes the *container* when it exits. `docker rmi containerized_agent` removes the *image* from your machine to free disk space when you no longer need it.
 
 ---
 
